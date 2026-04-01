@@ -342,6 +342,7 @@ export default function ChatWidget() {
             height: 100vh;
             max-height: 100vh;
             border-radius: 0;
+            padding-top: env(safe-area-inset-top, 20px);
           }
           .droogan-chat-btn {
             bottom: 16px;
