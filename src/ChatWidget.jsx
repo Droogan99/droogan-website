@@ -27,18 +27,58 @@ export default function ChatWidget() {
   useEffect(() => {
     const isMobile = window.innerWidth <= 480;
     if (isOpen) {
-      if (isMobile) document.body.style.overflow = 'hidden';
+      if (isMobile) {
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.top = `-${window.scrollY}px`;
+      }
       const vapiBtn = document.querySelector('.vapi-btn');
       if (vapiBtn) vapiBtn.style.zIndex = '1';
     } else {
-      document.body.style.overflow = '';
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      if (scrollY) window.scrollTo(0, parseInt(scrollY || '0') * -1);
       const vapiBtn = document.querySelector('.vapi-btn');
       if (vapiBtn) vapiBtn.style.zIndex = '';
     }
     return () => {
-      document.body.style.overflow = '';
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      if (scrollY) window.scrollTo(0, parseInt(scrollY || '0') * -1);
       const vapiBtn = document.querySelector('.vapi-btn');
       if (vapiBtn) vapiBtn.style.zIndex = '';
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen || window.innerWidth > 480) return;
+    const handleResize = () => {
+      const vv = window.visualViewport;
+      if (!vv) return;
+      const inputArea = document.querySelector('.droogan-chat-input-area');
+      const footer = document.querySelector('.droogan-chat-footer');
+      if (inputArea) {
+        const offset = window.innerHeight - vv.height;
+        inputArea.style.transform = `translateY(-${offset}px)`;
+        if (footer) footer.style.transform = `translateY(-${offset}px)`;
+      }
+    };
+    const handleBlur = () => {
+      const inputArea = document.querySelector('.droogan-chat-input-area');
+      const footer = document.querySelector('.droogan-chat-footer');
+      if (inputArea) inputArea.style.transform = '';
+      if (footer) footer.style.transform = '';
+    };
+    window.visualViewport?.addEventListener('resize', handleResize);
+    window.addEventListener('focusout', handleBlur);
+    return () => {
+      window.visualViewport?.removeEventListener('resize', handleResize);
+      window.removeEventListener('focusout', handleBlur);
+      handleBlur();
     };
   }, [isOpen]);
 
