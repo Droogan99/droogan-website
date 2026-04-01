@@ -367,15 +367,25 @@ export default function ChatWidget() {
 
         @media (max-width: 480px) {
           .droogan-chat-window {
-            bottom: 0;
+            top: 0;
+            left: 0;
             right: 0;
-            width: 100vw;
-            max-width: 100vw;
-            height: 100vh;
-            max-height: 100vh;
+            bottom: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            max-height: 100%;
             border-radius: 0;
-            padding-top: env(safe-area-inset-top, 20px);
+            position: fixed;
+            z-index: 99999;
           }
+          .droogan-chat-header {
+            padding-top: calc(env(safe-area-inset-top, 20px) + 16px);
+          }
+          .droogan-chat-input-area {
+            padding-bottom: calc(env(safe-area-inset-bottom, 10px) + 12px);
+          }
+        }
           .droogan-chat-btn {
             bottom: 16px;
             right: 16px;
