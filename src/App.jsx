@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import ChatWidget from './ChatWidget';
 
 const PURPLE = "#9B7FD4";
 const PURPLE_LIGHT = "#B8A0E8";
@@ -578,6 +579,7 @@ export default function DrooganAI() {
       <ContactSection />
       <ApplicationForm />
       <Footer />
+      <ChatWidget />
     </div>
   );
 }
