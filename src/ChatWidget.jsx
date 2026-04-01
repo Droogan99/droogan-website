@@ -21,7 +21,7 @@ export default function ChatWidget() {
   }, [messages]);
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if (isOpen && inputRef.current && window.innerWidth > 480) {
       inputRef.current.focus();
     }
   }, [isOpen]);
