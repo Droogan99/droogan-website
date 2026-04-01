@@ -27,10 +27,33 @@ export default function ChatWidget() {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      const vapiBtn = document.querySelector('.vapi-btn');
+      if (vapiBtn) vapiBtn.style.zIndex = '1';
     } else {
       document.body.style.overflow = '';
+      const vapiBtn = document.querySelector('.vapi-btn');
+      if (vapiBtn) vapiBtn.style.zIndex = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+      const vapiBtn = document.querySelector('.vapi-btn');
+      if (vapiBtn) vapiBtn.style.zIndex = '';
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleResize = () => {
+      const vv = window.visualViewport;
+      if (vv) {
+        const chatWindow = document.querySelector('.droogan-chat-window');
+        if (chatWindow) {
+          chatWindow.style.height = vv.height + 'px';
+        }
+      }
+    };
+    window.visualViewport?.addEventListener('resize', handleResize);
+    return () => window.visualViewport?.removeEventListener('resize', handleResize);
   }, [isOpen]);
 
   const sendMessage = async () => {
@@ -93,10 +116,7 @@ export default function ChatWidget() {
   return (
     <>
       <style>{`
-      .droogan-chat-window ~ .vapi-btn,
-        .droogan-chat-window + .vapi-btn {
-          z-index: 1 !important;
-        }
+    
         .droogan-chat-btn {
           position: fixed;
           bottom: 24px;
