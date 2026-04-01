@@ -16,19 +16,16 @@ export default function ChatWidget() {
   const inputRef = useRef(null);
   const scrollYRef = useRef(0);
 
-  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Focus input when chat opens
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isOpen]);
 
-  // Lock body scroll on mobile when chat is open
   useEffect(() => {
     const isMobile = window.innerWidth <= 480;
     if (isOpen && isMobile) {
@@ -50,7 +47,6 @@ export default function ChatWidget() {
     };
   }, [isOpen]);
 
-  // Hide Vapi button behind chat when open
   useEffect(() => {
     const vapiBtn = document.querySelector('.vapi-btn');
     if (vapiBtn) {
@@ -115,7 +111,6 @@ export default function ChatWidget() {
     }
   };
 
-  // Use onTouchEnd for send button to prevent iOS keyboard dismiss stealing the tap
   const handleSendTouch = (e) => {
     e.preventDefault();
     sendMessage();
@@ -406,7 +401,6 @@ export default function ChatWidget() {
         }
       `}</style>
 
-      {/* Chat Toggle Button */}
       {!isOpen && (
         <button className="droogan-chat-btn" onClick={() => setIsOpen(true)} aria-label="Open chat">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -416,10 +410,8 @@ export default function ChatWidget() {
         </button>
       )}
 
-      {/* Chat Window */}
       {isOpen && (
         <div className="droogan-chat-window">
-          {/* Header */}
           <div className="droogan-chat-header">
             <div className="droogan-chat-header-left">
               <img src="/droogan-avatar.png" alt="Droogan AI" className="droogan-chat-avatar" />
@@ -433,7 +425,6 @@ export default function ChatWidget() {
             </button>
           </div>
 
-          {/* Messages */}
           <div className="droogan-chat-messages">
             {messages.map((msg, i) => (
               <div key={i} className={`droogan-msg ${msg.role}`}>
@@ -450,7 +441,6 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input + Footer pinned to bottom */}
           <div className="droogan-chat-bottom">
             <div className="droogan-chat-input-area">
               <textarea
