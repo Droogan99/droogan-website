@@ -175,7 +175,7 @@ function Hero() {
         <div style={a(0.4)}>
           <p style={{ fontSize: 15, color: "#666", lineHeight: 1.8, maxWidth: 520, fontFamily: "'DM Sans', sans-serif", marginBottom: 36 }}>
             AI phone answering. Live chat. Content engines. Lead generation. Data intelligence.
-            Custom automation. Built for your business. Running 24/7 on dedicated hardware.
+            Custom automation. Built for your business. Running 24/7 on dedicated hardware. Based in the United States.
           </p>
         </div>
         <div style={{ ...a(0.5), display: "flex", gap: 12, flexWrap: "wrap" }}>
