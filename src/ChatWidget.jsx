@@ -93,10 +93,9 @@ export default function ChatWidget() {
   return (
     <>
       <style>{`
-      @media (max-width: 480px) {
-          .vapi-btn {
-            display: none !important;
-          }
+      .droogan-chat-window ~ .vapi-btn,
+        .droogan-chat-window + .vapi-btn {
+          z-index: 1 !important;
         }
         .droogan-chat-btn {
           position: fixed;
