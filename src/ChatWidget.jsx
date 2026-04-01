@@ -159,8 +159,8 @@ export default function ChatWidget() {
           gap: 12px;
         }
         .droogan-chat-avatar {
-          width: 36px;
-          height: 36px;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
           object-fit: cover;
         }
