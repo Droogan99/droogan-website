@@ -162,14 +162,7 @@ export default function ChatWidget() {
           width: 36px;
           height: 36px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #9B7FD4, #7B5FB4);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 14px;
-          font-weight: 700;
-          color: white;
-          font-family: 'Space Mono', monospace;
+          object-fit: cover;
         }
         .droogan-chat-header-info h3 {
           margin: 0;
@@ -373,7 +366,7 @@ export default function ChatWidget() {
           {/* Header */}
           <div className="droogan-chat-header">
             <div className="droogan-chat-header-left">
-              <div className="droogan-chat-avatar">D</div>
+              <img src="/droogan-avatar.png" alt="Droogan AI" className="droogan-chat-avatar" />
               <div className="droogan-chat-header-info">
                 <h3>Droogan AI</h3>
                 <span>Online</span>
