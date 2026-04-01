@@ -54,8 +54,8 @@ const TOOLS = [
 
 const COMPARISONS = [
   { need: "Full-time receptionist", traditional: "$2,500 – $4,000/mo", droogan: "From $125/mo" },
+  { need: "Market research analyst", traditional: "$3,000 – $6,000/mo", droogan: "From $150/mo" },
   { need: "Social media manager", traditional: "$1,500 – $3,000/mo", droogan: "From $150/mo" },
-  { need: "Marketing agency", traditional: "$5,000 – $15,000/mo", droogan: "From $750/mo" },
   { need: "Lead gen service", traditional: "$1,000 – $5,000/mo", droogan: "From $150/mo" },
   { need: "Virtual assistant", traditional: "$500 – $2,000/mo", droogan: "From $125/mo" },
 ];
@@ -289,7 +289,7 @@ function ProcessSection() {
 /* ============================================ */
 function ComparisonSection() {
   return (
-    <Section id="compare" bg="#0a0a0e">
+    <Section id="compare" bg="linear-gradient(180deg, #0c0c12 0%, #0a0a0e 100%)">
       <Reveal><div style={{ marginBottom: 48, maxWidth: 700, margin: "0 auto 48px", textAlign: "center" }}><SectionLabel text="THE NUMBERS" /><SectionTitle>What it costs vs. what<br />it replaces.</SectionTitle></div></Reveal>
       <Reveal delay={0.1}>
         <div style={{ maxWidth: 700, margin: "0 auto", overflowX: "auto" }}>
@@ -349,7 +349,7 @@ function AboutSection() {
 function FAQSection() {
   const [open, setOpen] = useState(null);
   return (
-    <Section id="faq" bg="#0a0a0e">
+    <Section id="faq" bg="linear-gradient(180deg, #0c0c12 0%, #0a0a0e 100%)">
       <Reveal><div style={{ marginBottom: 48, maxWidth: 640, margin: "0 auto 48px", textAlign: "center" }}><SectionLabel text="QUESTIONS" /><SectionTitle>Frequently asked.</SectionTitle></div></Reveal>
       <div style={{ maxWidth: 640, margin: "0 auto" }}>
         {FAQS.map((f, i) => (
@@ -526,7 +526,7 @@ function ContactSection() {
             </div>
             <div>
               <div style={{ fontSize: 12, color: "#555", fontFamily: "'Space Mono', monospace", marginBottom: 4 }}>SOCIAL</div>
-              <div style={{ display: "flex", gap: 16 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 <a href="https://instagram.com/droogan.ai" target="_blank" style={{ fontSize: 13, color: "#888", textDecoration: "none", fontFamily: "'DM Sans', sans-serif" }}>Instagram @droogan.ai</a>
                 <a href="https://x.com/DrooganAi" target="_blank" style={{ fontSize: 13, color: "#888", textDecoration: "none", fontFamily: "'DM Sans', sans-serif" }}>X @DrooganAi</a>
               </div>
