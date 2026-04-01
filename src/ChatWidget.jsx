@@ -25,8 +25,9 @@ export default function ChatWidget() {
     }
   }, [isOpen]);
   useEffect(() => {
+    const isMobile = window.innerWidth <= 480;
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      if (isMobile) document.body.style.overflow = 'hidden';
       const vapiBtn = document.querySelector('.vapi-btn');
       if (vapiBtn) vapiBtn.style.zIndex = '1';
     } else {
@@ -39,21 +40,6 @@ export default function ChatWidget() {
       const vapiBtn = document.querySelector('.vapi-btn');
       if (vapiBtn) vapiBtn.style.zIndex = '';
     };
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleResize = () => {
-      const vv = window.visualViewport;
-      if (vv) {
-        const chatWindow = document.querySelector('.droogan-chat-window');
-        if (chatWindow) {
-          chatWindow.style.height = vv.height + 'px';
-        }
-      }
-    };
-    window.visualViewport?.addEventListener('resize', handleResize);
-    return () => window.visualViewport?.removeEventListener('resize', handleResize);
   }, [isOpen]);
 
   const sendMessage = async () => {
@@ -365,7 +351,7 @@ export default function ChatWidget() {
           color: #9B7FD4;
         }
 
-        @media (max-width: 480px) {
+      @media (max-width: 480px) {
           .droogan-chat-window {
             top: 0;
             left: 0;
@@ -373,8 +359,8 @@ export default function ChatWidget() {
             bottom: 0;
             width: 100%;
             max-width: 100%;
-            height: 100%;
-            max-height: 100%;
+            height: 100dvh;
+            max-height: 100dvh;
             border-radius: 0;
             position: fixed;
             z-index: 99999;
@@ -385,12 +371,12 @@ export default function ChatWidget() {
           .droogan-chat-input-area {
             padding-bottom: calc(env(safe-area-inset-bottom, 10px) + 12px);
           }
-        }
           .droogan-chat-btn {
             bottom: 16px;
             right: 16px;
           }
         }
+
       `}</style>
 
       {/* Chat Toggle Button */}
