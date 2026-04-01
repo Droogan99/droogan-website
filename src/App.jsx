@@ -44,7 +44,7 @@ const NUMBERS = [
 ];
 
 const TOOLS = [
-  { name: "Claude", role: "Intelligence", desc: "Advanced AI reasoning by Anthropic" },
+  { name: "Claude", role: "Intelligence", desc: "Advanced AI by Anthropic" },
   { name: "Vapi", role: "Voice Agents", desc: "Industry-leading AI phone platform" },
   { name: "Deepgram", role: "Transcription", desc: "Real-time speech recognition" },
   { name: "Python", role: "Core Language", desc: "Powering every automation we build" },
