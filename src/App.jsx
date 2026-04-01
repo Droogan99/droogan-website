@@ -157,7 +157,7 @@ function Hero() {
   const a = (d) => ({ opacity: m?1:0, transform: m?"translateY(0)":"translateY(20px)", transition: `all 0.7s ease ${d}s` });
   return (
     <Section id="hero" pad="120px 40px 80px">
-      <div style={{ position: "absolute", inset: 0, opacity: 0.03, backgroundImage: `linear-gradient(${PD}0.4) 1px, transparent 1px), linear-gradient(90deg, ${PD}0.4) 1px, transparent 1px)`, backgroundSize: "60px 60px", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", inset: 0, opacity: 0.12, backgroundImage: `linear-gradient(${PD}0.4) 1px, transparent 1px), linear-gradient(90deg, ${PD}0.4) 1px, transparent 1px)`, backgroundSize: "60px 60px", pointerEvents: "none", maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)", WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)" }} />
       <div style={{ maxWidth: 800, position: "relative", zIndex: 1 }}>
         <div style={a(0.1)}>
           <div style={{ display: "inline-block", padding: "4px 12px", border: `1px solid ${PD}0.2)`, borderRadius: 3, fontSize: 11, color: PURPLE, letterSpacing: 3, fontFamily: "'Space Mono', monospace", marginBottom: 28 }}>AI AUTOMATION STUDIO</div>
