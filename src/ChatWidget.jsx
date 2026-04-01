@@ -24,6 +24,14 @@ export default function ChatWidget() {
       inputRef.current.focus();
     }
   }, [isOpen]);
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
 
   const sendMessage = async () => {
     const text = input.trim();
@@ -85,6 +93,11 @@ export default function ChatWidget() {
   return (
     <>
       <style>{`
+      @media (max-width: 480px) {
+          .vapi-btn {
+            display: none !important;
+          }
+        }
         .droogan-chat-btn {
           position: fixed;
           bottom: 24px;
@@ -278,7 +291,7 @@ export default function ChatWidget() {
           border-radius: 10px;
           padding: 10px 14px;
           color: #fff;
-          font-size: 13.5px;
+          font-size: 16px;
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
           resize: none;
           outline: none;
