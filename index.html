@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>droogan-website</title>
+    <style>
+  .vapi-btn {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    z-index: 999999 !important;
+  }
+</style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  <script>
+  var vapiInstance = null;
+  const assistant = "f7033c8e-c1c7-454c-a4b7-7e40b6a46f27";
+  const apiKey = "17162c6c-08e5-4948-827a-1cc5609f0662";
+  const buttonConfig = {
+    position: "bottom-left",
+    offset: "20px",
+    width: "50px",
+    height: "50px",
+    idle: {
+      color: "rgb(155, 127, 212)",
+      type: "pill",
+      title: "Talk to our AI",
+      subtitle: "Ask anything",
+      icon: "https://unpkg.com/lucide-static@0.321.0/icons/mic.svg",
+    },
+    loading: {
+      color: "rgb(155, 127, 212)",
+      type: "pill",
+      title: "Connecting...",
+      subtitle: "Please wait",
+      icon: "https://unpkg.com/lucide-static@0.321.0/icons/loader-2.svg",
+    },
+    active: {
+      color: "rgb(130, 94, 200)",
+      type: "pill",
+      title: "Live conversation",
+      subtitle: "Click to end",
+      icon: "https://unpkg.com/lucide-static@0.321.0/icons/phone-off.svg",
+    },
+  };
+
+  (function (d, t) {
+    var g = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    g.src = "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+    g.defer = true;
+    g.onload = function () {
+      vapiInstance = window.vapiSDK.run({
+        apiKey: apiKey,
+        assistant: assistant,
+        config: buttonConfig,
+      });
+    };
+    s.parentNode.insertBefore(g, s);
+  })(document, "script");
+</script>
+  </body>
+</html>
