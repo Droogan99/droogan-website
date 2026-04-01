@@ -387,8 +387,8 @@ export default function ChatWidget() {
             bottom: 0;
             width: 100%;
             max-width: 100%;
-            height: 100dvh;
-            max-height: 100dvh;
+            height: 100vh;
+            max-height: 100vh;
             border-radius: 0;
             position: fixed;
             z-index: 99999;
