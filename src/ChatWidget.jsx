@@ -14,71 +14,51 @@ export default function ChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const scrollYRef = useRef(0);
 
+  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Focus input when chat opens
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  // Lock body scroll on mobile when chat is open
   useEffect(() => {
     const isMobile = window.innerWidth <= 480;
-    if (isOpen) {
-      if (isMobile) {
-        document.body.style.position = 'fixed';
-        document.body.style.width = '100%';
-        document.body.style.top = `-${window.scrollY}px`;
-      }
-      const vapiBtn = document.querySelector('.vapi-btn');
-      if (vapiBtn) vapiBtn.style.zIndex = '1';
-    } else {
-      const scrollY = document.body.style.top;
+    if (isOpen && isMobile) {
+      scrollYRef.current = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${scrollYRef.current}px`;
+    }
+    if (!isOpen) {
       document.body.style.position = '';
       document.body.style.width = '';
       document.body.style.top = '';
-      if (scrollY) window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      const vapiBtn = document.querySelector('.vapi-btn');
-      if (vapiBtn) vapiBtn.style.zIndex = '';
+      window.scrollTo(0, scrollYRef.current);
     }
     return () => {
-      const scrollY = document.body.style.top;
       document.body.style.position = '';
       document.body.style.width = '';
       document.body.style.top = '';
-      if (scrollY) window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      const vapiBtn = document.querySelector('.vapi-btn');
-      if (vapiBtn) vapiBtn.style.zIndex = '';
     };
   }, [isOpen]);
 
+  // Hide Vapi button behind chat when open
   useEffect(() => {
-    if (!isOpen || window.innerWidth > 480) return;
-    const handleResize = () => {
-      const vv = window.visualViewport;
-      if (!vv) return;
-      const inputArea = document.querySelector('.droogan-chat-input-area');
-      const footer = document.querySelector('.droogan-chat-footer');
-      if (inputArea) {
-        const offset = window.innerHeight - vv.height;
-        inputArea.style.transform = `translateY(-${offset}px)`;
-        if (footer) footer.style.transform = `translateY(-${offset}px)`;
-      }
-    };
-    const handleBlur = () => {
-      const inputArea = document.querySelector('.droogan-chat-input-area');
-      const footer = document.querySelector('.droogan-chat-footer');
-      if (inputArea) inputArea.style.transform = '';
-      if (footer) footer.style.transform = '';
-    };
-    window.visualViewport?.addEventListener('resize', handleResize);
-    window.addEventListener('focusout', handleBlur);
+    const vapiBtn = document.querySelector('.vapi-btn');
+    if (vapiBtn) {
+      vapiBtn.style.zIndex = isOpen ? '1' : '';
+    }
     return () => {
-      window.visualViewport?.removeEventListener('resize', handleResize);
-      window.removeEventListener('focusout', handleBlur);
-      handleBlur();
+      const btn = document.querySelector('.vapi-btn');
+      if (btn) btn.style.zIndex = '';
     };
   }, [isOpen]);
 
@@ -94,10 +74,9 @@ export default function ChatWidget() {
 
     try {
       const apiMessages = updatedMessages
-        .filter((_, i) => i > 0) // Skip initial greeting for API
+        .filter((_, i) => i > 0)
         .map((m) => ({ role: m.role, content: m.content }));
 
-      // If this is the first user message, include it properly
       if (apiMessages.length === 0) {
         apiMessages.push({ role: 'user', content: text });
       }
@@ -115,14 +94,14 @@ export default function ChatWidget() {
       } else {
         setMessages((prev) => [
           ...prev,
-          { role: 'assistant', content: "Something went wrong on my end. Try again or reach out at jesse@droogan.ai." },
+          { role: 'assistant', content: "Something went wrong on my end. Try again or reach out at support@droogan.ai." },
         ]);
       }
     } catch (err) {
       console.error('Chat error:', err);
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: "Couldn't connect right now. Try again in a moment or email jesse@droogan.ai." },
+        { role: 'assistant', content: "Couldn't connect right now. Try again in a moment or email support@droogan.ai." },
       ]);
     } finally {
       setIsLoading(false);
@@ -136,13 +115,15 @@ export default function ChatWidget() {
     }
   };
 
-  // Unread indicator
-  const [hasUnread] = useState(true);
+  // Use onTouchEnd for send button to prevent iOS keyboard dismiss stealing the tap
+  const handleSendTouch = (e) => {
+    e.preventDefault();
+    sendMessage();
+  };
 
   return (
     <>
       <style>{`
-    
         .droogan-chat-btn {
           position: fixed;
           bottom: 24px;
@@ -210,6 +191,7 @@ export default function ChatWidget() {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          flex-shrink: 0;
         }
         .droogan-chat-header-left {
           display: flex;
@@ -265,6 +247,8 @@ export default function ChatWidget() {
           display: flex;
           flex-direction: column;
           gap: 12px;
+          -webkit-overflow-scrolling: touch;
+          overscroll-behavior: contain;
           scrollbar-width: thin;
           scrollbar-color: rgba(155, 127, 212, 0.3) transparent;
         }
@@ -280,7 +264,7 @@ export default function ChatWidget() {
           max-width: 85%;
           padding: 10px 14px;
           border-radius: 12px;
-          font-size: 13.5px;
+          font-size: 14px;
           line-height: 1.5;
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
           word-wrap: break-word;
@@ -321,6 +305,9 @@ export default function ChatWidget() {
           30% { transform: translateY(-6px); opacity: 1; }
         }
 
+        .droogan-chat-bottom {
+          flex-shrink: 0;
+        }
         .droogan-chat-input-area {
           padding: 12px 16px;
           border-top: 1px solid rgba(155, 127, 212, 0.15);
@@ -362,6 +349,7 @@ export default function ChatWidget() {
           justify-content: center;
           transition: opacity 0.15s, transform 0.15s;
           flex-shrink: 0;
+          -webkit-tap-highlight-color: transparent;
         }
         .droogan-chat-send:disabled {
           opacity: 0.4;
@@ -391,7 +379,7 @@ export default function ChatWidget() {
           color: #9B7FD4;
         }
 
-      @media (max-width: 480px) {
+        @media (max-width: 480px) {
           .droogan-chat-window {
             top: 0;
             left: 0;
@@ -416,7 +404,6 @@ export default function ChatWidget() {
             right: 16px;
           }
         }
-
       `}</style>
 
       {/* Chat Toggle Button */}
@@ -425,7 +412,7 @@ export default function ChatWidget() {
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
           </svg>
-          {hasUnread && <div className="droogan-unread" />}
+          <div className="droogan-unread" />
         </button>
       )}
 
@@ -463,26 +450,32 @@ export default function ChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
-          <div className="droogan-chat-input-area">
-            <textarea
-              ref={inputRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Type a message..."
-              rows={1}
-            />
-            <button className="droogan-chat-send" onClick={sendMessage} disabled={!input.trim() || isLoading} aria-label="Send message">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Footer */}
-          <div className="droogan-chat-footer">
-            Powered by <a href="https://droogan.ai" target="_blank" rel="noopener">Droogan AI</a>
+          {/* Input + Footer pinned to bottom */}
+          <div className="droogan-chat-bottom">
+            <div className="droogan-chat-input-area">
+              <textarea
+                ref={inputRef}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Type a message..."
+                rows={1}
+              />
+              <button
+                className="droogan-chat-send"
+                onTouchEnd={handleSendTouch}
+                onClick={sendMessage}
+                disabled={!input.trim() || isLoading}
+                aria-label="Send message"
+              >
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                </svg>
+              </button>
+            </div>
+            <div className="droogan-chat-footer">
+              Powered by <a href="https://droogan.ai" target="_blank" rel="noopener">Droogan AI</a>
+            </div>
           </div>
         </div>
       )}
