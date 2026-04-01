@@ -213,7 +213,7 @@ function NumbersSection() {
 function ServicesSection() {
   return (
     <Section id="services" bg="linear-gradient(180deg, #0c0c12 0%, #0a0a0e 100%)">
-      <Reveal><div style={{ marginBottom: 56 }}><SectionLabel text="WHAT WE BUILD" /><SectionTitle>Six ways to automate<br />your business.</SectionTitle></div></Reveal>
+      <Reveal><div style={{ marginBottom: 56, maxWidth: 1100, margin: "0 auto 56px", textAlign: "center" }}><SectionLabel text="WHAT WE BUILD" /><SectionTitle>Six ways to automate<br />your business.</SectionTitle></div></Reveal>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16, maxWidth: 1100, margin: "0 auto" }}>
         {SERVICES.map((s, i) => {
           const [h, setH] = useState(false);
@@ -266,8 +266,8 @@ function TrustSection() {
 function ProcessSection() {
   return (
     <Section id="process" bg="linear-gradient(180deg, #0a0a0e 0%, #0c0c12 100%)">
-      <Reveal><div style={{ marginBottom: 56 }}><SectionLabel text="HOW IT WORKS" /><SectionTitle>Five steps. Zero fluff.</SectionTitle></div></Reveal>
-      <div style={{ maxWidth: 600 }}>
+      <Reveal><div style={{ marginBottom: 56, maxWidth: 600, margin: "0 auto 56px", textAlign: "center" }}><SectionLabel text="HOW IT WORKS" /><SectionTitle>Five steps. Zero fluff.</SectionTitle></div></Reveal>
+      <div style={{ maxWidth: 600, margin: "0 auto" }}>
         {PROCESS.map((p, i) => (
           <Reveal key={i} delay={i * 0.08}>
             <div style={{ display: "flex", gap: 24, marginBottom: 36, alignItems: "flex-start" }}>
@@ -290,9 +290,9 @@ function ProcessSection() {
 function ComparisonSection() {
   return (
     <Section id="compare" bg="#0a0a0e">
-      <Reveal><div style={{ marginBottom: 48 }}><SectionLabel text="THE NUMBERS" /><SectionTitle>What it costs vs. what<br />it replaces.</SectionTitle></div></Reveal>
+      <Reveal><div style={{ marginBottom: 48, maxWidth: 700, margin: "0 auto 48px", textAlign: "center" }}><SectionLabel text="THE NUMBERS" /><SectionTitle>What it costs vs. what<br />it replaces.</SectionTitle></div></Reveal>
       <Reveal delay={0.1}>
-        <div style={{ maxWidth: 700, overflowX: "auto" }}>
+        <div style={{ maxWidth: 700, margin: "0 auto", overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "'DM Sans', sans-serif" }}>
             <thead>
               <tr>
@@ -323,8 +323,8 @@ function ComparisonSection() {
 function AboutSection() {
   return (
     <Section id="about" bg="linear-gradient(180deg, #0a0a0e 0%, #0c0c12 100%)">
-      <div style={{ maxWidth: 640 }}>
-        <Reveal><SectionLabel text="ABOUT" /><SectionTitle>Why Droogan AI.</SectionTitle></Reveal>
+      <div style={{ maxWidth: 640, margin: "0 auto" }}>
+        <Reveal><div style={{ textAlign: "center" }}><SectionLabel text="ABOUT" /><SectionTitle>Why Droogan AI.</SectionTitle></div></Reveal>
         <Reveal delay={0.1}>
           <div style={{ padding: 32, borderRadius: 10, border: `1px solid ${PD}0.08)`, background: `${PD}0.02)`, marginTop: 32 }}>
             <p style={{ fontSize: 14, color: "#888", lineHeight: 1.8, fontFamily: "'DM Sans', sans-serif", marginBottom: 16 }}>
@@ -350,8 +350,8 @@ function FAQSection() {
   const [open, setOpen] = useState(null);
   return (
     <Section id="faq" bg="#0a0a0e">
-      <Reveal><div style={{ marginBottom: 48 }}><SectionLabel text="QUESTIONS" /><SectionTitle>Frequently asked.</SectionTitle></div></Reveal>
-      <div style={{ maxWidth: 640 }}>
+      <Reveal><div style={{ marginBottom: 48, maxWidth: 640, margin: "0 auto 48px", textAlign: "center" }}><SectionLabel text="QUESTIONS" /><SectionTitle>Frequently asked.</SectionTitle></div></Reveal>
+      <div style={{ maxWidth: 640, margin: "0 auto" }}>
         {FAQS.map((f, i) => (
           <Reveal key={i} delay={i * 0.05}>
             <div onClick={() => setOpen(open === i ? null : i)} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)", cursor: "pointer", padding: "20px 0" }}>
@@ -507,8 +507,8 @@ function ApplicationForm() {
 function ContactSection() {
   return (
     <Section id="contact" bg="#0a0a0e" pad="80px 40px">
-      <Reveal><div style={{ marginBottom: 48 }}><SectionLabel text="GET IN TOUCH" /><SectionTitle>Talk to us. Or our AI.</SectionTitle></div></Reveal>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, maxWidth: 800 }}>
+      <Reveal><div style={{ marginBottom: 48, maxWidth: 800, margin: "0 auto 48px", textAlign: "center" }}><SectionLabel text="GET IN TOUCH" /><SectionTitle>Talk to us. Or our AI.</SectionTitle></div></Reveal>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, maxWidth: 800, margin: "0 auto" }}>
         <Reveal delay={0.1}>
           <div style={{ padding: 28, borderRadius: 10, border: `1px solid ${PD}0.08)`, background: `${PD}0.02)` }}>
             <div style={{ fontSize: 13, color: PURPLE, fontWeight: 700, fontFamily: "'Space Mono', monospace", marginBottom: 16, letterSpacing: 1 }}>LIVE AI DEMO</div>
