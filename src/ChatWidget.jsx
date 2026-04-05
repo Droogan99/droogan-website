@@ -4,10 +4,10 @@ const CHAT_API = '/api/chat';
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
+ const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hey! I'm the Droogan AI assistant — and yes, I'm a live example of what we build. Ask me anything about our services, pricing, or how AI can automate your business.",
+      content: "Thanks for contacting Droogan AI. This conversation may be recorded for quality assurance. I'm our AI assistant — and yes, I'm an example of exactly what we build for businesses. Ask me anything about our services or how it all works.", 
     },
   ]);
   const [input, setInput] = useState('');
