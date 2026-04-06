@@ -73,8 +73,8 @@ const FAQS = [
 ];
 
 const TIERS = {
-  starter: { name: "Starter", price: "$500 setup + $250/mo", tagline: "Never Miss a Customer",
-    desc: "Select up to 2 channels below. Every channel includes booking, FAQ handling, follow-ups, and escalation built in.", pick: 2,
+  starter: { name: "Starter", price: "$500 setup + $250/mo (2 channels) · +$75/mo per extra channel", tagline: "Never Miss a Customer",
+    desc: "Select the channels you want. Every channel includes booking, FAQ handling, follow-ups, and escalation built in. Picking 4? Growth might be a better value.", pick: 4,
     preview: "Best for small businesses losing customers to missed calls, slow responses, or no online chat. Get an AI receptionist handling your phones and website around the clock.",
     services: ["AI phone answering", "Website live chat", "SMS / text message bot", "Review response automation"] },
   growth: { name: "Growth", price: "$1,200 setup + $450/mo", tagline: "Work While You Sleep",
